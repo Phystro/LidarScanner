@@ -16,6 +16,7 @@
 
 // constants and variables
 const int STEPS = 2038;  // steps per revolution/ we have a 2038 step motor @ step is 0.1767 degrees
+const int SPEED = 2038;  // speed of rotation in RPM
 
 double dist_r = 0.0;
 int intervals_z = 0;
@@ -40,8 +41,8 @@ int btnRightPin = 5;
 void setup() {
   Serial.begin(115200);
 
-  // set stepper motor speed in RPM. 6RPM corresponds to a 64 step complete rotation in 10s
-  stepperMotor.setSpeed(100); // sets the delay between steps
+  // set stepper motor speed in RPM.
+//  stepperMotor.setSpeed(SPEED); // sets the delay between steps
   lidar.begin(0, true);
   lidar.configure(0);
 
@@ -61,20 +62,17 @@ void loop() {
     canMove = false;
   }
 
-  if (digitalRead(btnLeftPin)) {
-    if (canMove) {
-//      stepperMotor.setSpeed(64);
-      stepperMotor.step(64);
+//  if (digitalRead(btnLeftPin)) {
+//    if (canMove) {
+//      stepperMotor.step(64);
 //      Serial.print("LEFT\n");
-      delay(20);
-    }
-   }
+//      delay(20);
+//    }
+//   }
 
    if (digitalRead(btnRightPin)) {
     if (canMove){
-//      stepperMotor.setSpeed(64);
-      stepperMotor.step(steps_interval);//
-//      Serial.print("RIGHT\n");
+      stepperMotor.step(steps_interval);
       delay(20);
     }
    }
@@ -92,14 +90,13 @@ void loop() {
 void lidarScan() {
   redON();
   greenOFF();
-  delay(100);
   
-  scanning = true;
+//  scanning = true;
   dist_r = lidar.distance(false);
   stepperMotor.step(steps_interval); // turns motor n steps at N RPM.
-  Serial.print("Steps: ");
-  Serial.print(steps_count);
-  Serial.print("\t");
+//  Serial.print("Steps: ");
+//  Serial.print(steps_count);
+//  Serial.print("\t");
   Serial.print(theta);
   Serial.print(",");
   Serial.print(dist_r);
@@ -125,7 +122,7 @@ void adjustmentMode() {
 }
 
 void increment_z_intervals() {
-  delay(1000);
+  delay(500);
   intervals_z += 1;
 }
 
