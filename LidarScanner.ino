@@ -14,6 +14,16 @@
 #include <Stepper.h>
 #include <LIDARLite.h>
 
+#define REDPIN 2
+#define GREENPIN 3
+#define OKBTNPIN 4
+#define RIGHTBTNPIN 5
+// stepper motor driver control inputs
+#define IN1 8
+#define IN2 9
+#define IN3 10
+#define IN4 11
+
 // constants and variables
 const int STEPS = 2038;  // steps per revolution/ we have a 2038 step motor @ step is 0.1767 degrees
 const int RPMSPEED = 1;  // speed of rotation in RPM
@@ -28,14 +38,8 @@ bool scanning = false;
 bool canMove = true;
 
 // Object devices instances
-Stepper stepperMotor(STEPS, 8, 9, 10, 11);
+Stepper stepperMotor(STEPS, IN1, IN2, IN3, IN4);
 LIDARLite lidar;
-
-int redPin = 2;
-int greenPin = 3;
-int btnOKPin = 4;
-int btnLeftPin = 6;
-int btnRightPin = 5;
 
 void setup() {
   Serial.begin(115200);
@@ -45,23 +49,22 @@ void setup() {
   lidar.begin(0, true);
   lidar.configure(0);
 
-  pinMode(redPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
-  pinMode(btnOKPin, INPUT);
-  pinMode(btnLeftPin, INPUT);
-  pinMode(btnRightPin, INPUT);
+  pinMode(REDPIN, OUTPUT);
+  pinMode(GREENPIN, OUTPUT);
+  pinMode(OKBTNPIN, INPUT);
+  pinMode(RIGHTBTNPIN, INPUT);
 
   angle_interval = angle_interval * steps_interval;
 }
 
 void loop() {
 
-  if (digitalRead(btnOKPin)) {
+  if (digitalRead(OKBTNPIN)) {
     scanning = true;
     canMove = false;
   }
 
-   if (digitalRead(btnRightPin)) {
+   if (digitalRead(RIGHTBTNPIN)) {
     if (canMove){
       stepperMotor.step(steps_interval);
       delay(20);
@@ -84,6 +87,7 @@ void lidarScan() {
   
   dist_r = lidar.distance(false);
   stepperMotor.step(steps_interval); // turns motor n steps at N RPM.
+  delay(20);
 
   Serial.print(theta);
   Serial.print(",");
@@ -91,7 +95,7 @@ void lidarScan() {
   Serial.print(",");
   Serial.print(intervals_z);
   Serial.print("\n");
-  delay(20);
+  
   theta += angle_interval;
   steps_count++;
 
@@ -115,17 +119,17 @@ void increment_z_intervals() {
 }
 
 void redON() {
-  digitalWrite(redPin, HIGH);
+  digitalWrite(REDPIN, HIGH);
 }
 
 void redOFF() {
-  digitalWrite(redPin, LOW);
+  digitalWrite(REDPIN, LOW);
 }
 
 void greenON() {
-  digitalWrite(greenPin, HIGH);
+  digitalWrite(GREENPIN, HIGH);
 }
 
 void greenOFF() {
-  digitalWrite(greenPin, LOW);
+  digitalWrite(GREENPIN, LOW);
 }
