@@ -44,7 +44,7 @@ $ python SerialDataLogger.py --port /dev/ttyACM0 --baud 9600
 
 ## Convert Data from Cylindrical coordinates $(\theta, r, z)$ to Rectangular coordinates $(x, y, z)$
 
-The file `DataCyRec.py` reads the csv data file and converts the sylindrical coordinates into rectangular coordinates.
+The file `DataCyRec.py` reads the csv data file and converts the cylindrical coordinates into rectangular coordinates, saving them in output file `Rec_LidarScanCSVData.csv`
 
 ### How to run it
 
