@@ -97,8 +97,7 @@ void lidarScan() {
   Serial.print("\n");
   
   theta += angle_interval;
-  steps_count++;
-
+  
   if (theta >= 360) {
     theta = 0.0;
     increment_z_intervals();
