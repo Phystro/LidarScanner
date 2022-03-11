@@ -87,7 +87,6 @@ void lidarScan() {
   
   dist_r = lidar.distance(false);
   stepperMotor.step(steps_interval); // turns motor n steps at N RPM.
-  delay(20);
 
   Serial.print(theta);
   Serial.print(",");
@@ -95,9 +94,9 @@ void lidarScan() {
   Serial.print(",");
   Serial.print(intervals_z);
   Serial.print("\n");
-  
+  delay(20);
   theta += angle_interval;
-  
+
   if (theta >= 360) {
     theta = 0.0;
     increment_z_intervals();
