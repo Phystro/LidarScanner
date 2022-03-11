@@ -6,14 +6,14 @@
 
 
 **Description:**
-```
+
 Performs Lidar scan of a geological mines, creating a cylindrical set of codes, that we later convert into rectangular set of coordinates.
-```
+
 
 **Stepper Motor:**
-```
+
 Using 28BYJ-48 Stepper Motor with ULN2003 Driver and Arduino. The 28BYJ-48 is a 5-wire unipolar stepper motor. There are 2037.8864 ~ 2038 steps per revolution.
-```
+
 
 ---
 ## Read from Serial Monitor and save into CSV file
