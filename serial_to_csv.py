@@ -2,6 +2,7 @@
 
 import serial
 import csv
+import sys
 import time
 
 # constants and variables
