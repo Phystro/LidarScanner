@@ -56,7 +56,7 @@ class SerialDataLogger:
                 print(self.serial_data)
 
                 with open(self.filename, "a") as f:
-                    writer = csv.writer(self.filename, delimiter=",")
+                    writer = csv.writer(f, delimiter=",")
                     writer.writerow(self.serial_data)
             finally:
                 pass
