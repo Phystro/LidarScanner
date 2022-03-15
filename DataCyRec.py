@@ -75,8 +75,13 @@ class DataConverter:
 
     def data_conversion(self):
         first_data_row_index = 0    
-        if type(self.cylindrical_data[0][0]) == str:
+        
+        if type(self.rectangular_data[0][0]) == str:
             first_data_row_index = 1
+            self.rectangular_data[0][0] = "X"
+            self.rectangular_data[0][1] = "Y"
+            self.rectangular_data[0][2] = "Z"
+
         for row in range(first_data_row_index, self.num_rows):
             theta = float(self.cylindrical_data[row][0])
             r = float(self.cylindrical_data[row][1])
