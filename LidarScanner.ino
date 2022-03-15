@@ -27,6 +27,12 @@
 // constants and variables
 const int STEPS = 2038;  // steps per revolution/ we have a 2038 step motor @ step is 0.1767 degrees
 const int RPMSPEED = 1;  // speed of rotation in RPM
+// Maximum and minimum distances ranges in cm
+const int MIN_DIST = 30;
+const int MAX_DIST = 5000;
+
+// number of Lidar-lite measurement iterations
+const int iterations = 5;
 
 double dist_r = 0.0;
 int intervals_z = 0;
@@ -46,8 +52,8 @@ void setup() {
 
   // set stepper motor speed in RPM.
 //  stepperMotor.setSpeed(RPMSPEED); // sets the delay between steps
-  lidar.begin(0, true);
-  lidar.configure(0);
+  lidar.begin(0, true); // set at 400KHz
+  lidar.configure(0); // default mode - Balanced performance
 
   pinMode(REDPIN, OUTPUT);
   pinMode(GREENPIN, OUTPUT);
@@ -85,7 +91,8 @@ void lidarScan() {
   redON();
   greenOFF();
   
-  dist_r = lidar.distance(false);
+//  dist_r = lidar.distance(false); // receiver bias correction set to false for faster measurements
+  dist_r = mean_distance();
   stepperMotor.step(steps_interval); // turns motor n steps at N RPM.
 
   Serial.print(theta);
@@ -104,6 +111,22 @@ void lidarScan() {
     canMove = true;
   }
   
+}
+
+double mean_distance() {
+  int num_valid_measurements = 0;
+  double sum = 0.0;
+
+  for (int i = 0; i < iterations; i++) {
+    dist_r = lidar.distance(false);
+    // check that distance falls within the Lidar range (30 cm - 5000 cm)
+    if (dist_r > MIN_DIST and dist_r < MAX_DIST) {
+      sum += dist_r;
+      num_valid_measurements += 1;
+    }
+  }
+  
+  return (double)sum / (double)num_valid_measurements;
 }
 
 void adjustmentMode() {
