@@ -18,10 +18,10 @@ Using 28BYJ-48 Stepper Motor with ULN2003 Driver and Arduino. The 28BYJ-48 is a 
 
 ### Modules Needed
 
-Install the following python modules first: `csv`, `serial` and `pyserial`
+Install the following python modules first: `csv`, `serial`, `python-docx` and `pyserial`
 
 ```sh 
-$ pip install csv serial pyserial
+$ pip install csv serial pyserial python-docx
 ```
 
 
@@ -54,7 +54,7 @@ $ python SerialDataLogger.py --port /dev/ttyACM0 --baud 9600
 
 ## Convert Data from Cylindrical coordinates $(\theta, r, z)$ to Rectangular coordinates $(x, y, z)$
 
-The file `DataCyRec.py` reads the csv data file and converts the cylindrical coordinates into rectangular coordinates, saving them in output file `Rec_LidarScanCSVData.csv`
+The file `DataCyRec.py` reads the csv data file and converts the cylindrical coordinates into rectangular coordinates, saving them in output file `LidarScanCSVData.Rec.csv`
 
 ### How to run it
 

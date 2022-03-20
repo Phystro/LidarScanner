@@ -27,7 +27,7 @@ class DataConverter:
             exit(1)
         
         self.INPUT_FILE_PATH: str = self.options.input
-        self.OUTPUT_FILE_PATH: str = "Rec_LidarScanCSVData.csv"
+        self.OUTPUT_FILE_PATH: str =  self.INPUT_FILE_PATH[:-3] + "Rec.csv" # "Rec_LidarScanCSVData.csv"
         
         try:
             self.cylindrical_file = csv.reader(open(self.INPUT_FILE_PATH, "r"))

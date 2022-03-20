@@ -91,8 +91,8 @@ void lidarScan() {
   redON();
   greenOFF();
   
-//  dist_r = lidar.distance(false); // receiver bias correction set to false for faster measurements
-  dist_r = mean_distance();
+  dist_r = lidar.distance(false); // receiver bias correction set to false for faster measurements
+//  dist_r = mean_distance();
   stepperMotor.step(steps_interval); // turns motor n steps at N RPM.
 
   Serial.print(theta);
